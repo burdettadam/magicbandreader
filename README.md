@@ -22,7 +22,7 @@ BACKUP YOUR magicband.py BEFORE UPGRADING so you don't lose you sequences config
 * Webhook support for turning on lights or opening locks when a magic band is played
 * Multiple sequence support per individual magic bands. (A single magicband can have multiple sequences assigned to it.)
 
-#Basic wiring:
+# Basic wiring:
 * Connect PIXEL LEDS to  DATA on GPIO-18 (pin 12), pixel GnD to GND (pin 6) and pixel positive to +5v (pin 2)
 * Connect USB RFID reader
 * Connect Speaker via HDMI connector (ONBOARD SPEAKER WILL NOT WORK DUE TO Pixel LEDS!)

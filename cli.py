@@ -19,22 +19,22 @@
 # See the Licence for the specific language governing
 # permissions and limitations under the Licence.
 # -----------------------------------------------------------------------------
-import logging
-import re
-import time
 import errno
 import inspect
-import threading
-from operator import itemgetter
+import logging
 import platform
-import nfc
+import re
+import threading
+import time
+from operator import itemgetter
 
+import nfc
 
 log = logging.getLogger('main')
 log.setLevel(logging.CRITICAL)
 
 def get_test_methods(obj):
-    test_methods = list()
+    test_methods = []
     for name, func in inspect.getmembers(obj, inspect.ismethod):
         if name.startswith("test_"):
             line = inspect.getsourcelines(func)[1]
@@ -78,9 +78,9 @@ class CommandLineInterface(object):
 
         fmt = '[%(name)s] %(message)s'
         if self.options.reltime:
-            fmt = '%(relativeCreated)d ms ' + fmt
+            fmt = f'%(relativeCreated)d ms {fmt}'
         if self.options.abstime:
-            fmt = '%(asctime)s ' + fmt
+            fmt = f'%(asctime)s {fmt}'
 
         ch = ColorStreamHandler()
         ch.setLevel(logging.CRITICAL)
@@ -271,7 +271,7 @@ class CommandLineInterface(object):
         for index, test in enumerate(self.options.test):
             test_name = "test_{0}".format(test)
             try:
-                test_func = eval("self." + test_name)
+                test_func = eval(f"self.{test_name}")
             except AttributeError:
                 log.error("invalid test '{0}'".format(test))
                 continue
@@ -302,15 +302,15 @@ class CommandLineInterface(object):
                 clf = nfc.ContactlessFrontend(path)
             except IOError as error:
                 if error.errno == errno.ENODEV:
-                    log.info("no contactless reader found on " + path)
+                    log.info(f"no contactless reader found on {path}")
                 elif error.errno == errno.EACCES:
-                    log.info("access denied for device with path " + path)
+                    log.info(f"access denied for device with path {path}")
                 elif error.errno == errno.EBUSY:
-                    log.info("the reader on " + path + " is busy")
+                    log.info(f"the reader on {path} is busy")
                 else:
-                    log.debug(repr(error) + "when trying " + path)
+                    log.debug(f"{repr(error)} when trying {path}")
             else:
-                log.debug("found a usable reader on " + path)
+                log.debug(f"found a usable reader on {path}")
                 break
         else:
             log.error("no contactless reader available")
