@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "magicbandreader"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+nfcpy = "^1.0.4"
+PySDL2 = "^0.9.11"
+pygame = "^2.1.2"
+configobj = "^5.0.6"
+httplib2 = "^0.20.4"
+#rpi-ws281x = "*"
+#RPI.GPIO = "*"
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
